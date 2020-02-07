@@ -1,15 +1,16 @@
 {
-  "name": "@coreui/coreui-free-react-admin-template",
+  "name": "neverland-web",
   "version": "2.6.0",
-  "description": "CoreUI React Open Source Bootstrap 4 Admin Template",
-  "author": "Łukasz Holeczek",
+  "main": "index.js",
+  "description": "Neverland Webpage",
+  "author": "Potion, Miral",
   "homepage": "https://coreui.io",
   "copyright": "Copyright 2017-2019 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:coreui/coreui-free-react-admin-template.git"
+    "url": "git@github.com:potionk/neverland-web.git"
   },
   "dependencies": {
     "@coreui/coreui": "^2.1.12",
@@ -24,6 +25,7 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
+    "mysql": "^2.18.1",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -37,10 +39,13 @@
     "simple-line-icons": "^2.4.1"
   },
   "devDependencies": {
+    "npm-run-all": "^4.1.5",
     "react-scripts": "^3.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm-run-all --parallel start:**",
+    "start:client": "react-scripts start",
+    "start:server": "node ./server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",
