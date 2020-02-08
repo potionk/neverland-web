@@ -1,5 +1,8 @@
 import React from 'react';
 
+const Page404 = React.lazy(() => import('./views/Pages/Page404'));
+const Page500 = React.lazy(() => import('./views/Pages/Page500'));
+
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
 const Carousels = React.lazy(() => import('./views/Base/Carousels'));
@@ -39,6 +42,8 @@ const User = React.lazy(() => import('./views/Users/User'));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/Page404', name: 'Page404', component: Page404 },
+  { path: '/Page500', name: 'Page500', component: Page500 },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
