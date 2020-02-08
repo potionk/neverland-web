@@ -1,10 +1,10 @@
-var express    = require('express');
-var mysql      = require('mysql');
-var dbconfig   = require('./config/database.js');
-var connection = mysql.createConnection(dbconfig);
+var express = require('express');
 var app = express();
-
 app.set('port', process.env.PORT || 3001);
+
+const accountRouter = require('./routes/account');
+
+app.use('/account', accountRouter);
 
 app.get('/', function(req, res){
   res.send('Root');
