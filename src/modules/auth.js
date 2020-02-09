@@ -6,3 +6,9 @@ export function login(account, loggedInState) {
     sessionStorage.setItem("account", account)
     sessionStorage.setItem("loggedInState", loggedInState)
 }
+
+export function logout() {
+    sessionStorage.removeItem("account")
+    sessionStorage.removeItem("loggedInState")
+
+}

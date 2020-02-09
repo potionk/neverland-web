@@ -2,6 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
+import {logout} from '../../modules/auth';
 
 import {
   AppAside,
@@ -30,7 +31,9 @@ class DefaultLayout extends Component {
 
   signOut(e) {
     e.preventDefault()
-    this.props.history.push('/login')
+    // this.props.history.push('/login')
+    logout();
+    window.location.reload();
   }
 
   render() {
