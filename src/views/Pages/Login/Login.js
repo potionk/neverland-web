@@ -1,14 +1,70 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
-// import {isLoggedIn} from '../../../modules/auth';
+import axios from "axios";
+import {isLoggedIn, login} from '../../../modules/auth';
 
 class Login extends Component {
-  login = (e) => {
-    e.preventDefault();
-    console.log("helloworld");
+  state = {
+    account: '',
+    password: ''
   }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  login = async () => {
+    console.log(this.state);
+    axios.post("http://localhost:3001/account/login", {
+      account: this.state.account,
+      password: this.state.password
+    })
+      .then( res => {
+        let data=res.data;
+        console.log(data);
+        if(data.error){
+          switch(data.errorCode){
+            case 1:
+              alert("아이디를 입력해주세요.");
+              window.location.reload();
+              return;
+            case 2:
+              alert("비밀번호를 입력해주세요.");
+              window.location.reload();
+              return;
+            case 3:
+              alert("존재하지 않는 계정입니다.");
+              window.location.reload();
+              return;
+            case 4:
+              alert("비밀번호가 올바르지 않습니다.");
+              window.location.reload();
+              return;
+            case 5:
+              alert("DB연결 에러.");
+              window.location.reload();
+              return;  
+            default:
+              alert("잘못된 접근입니다.")
+              window.location.reload()
+              return
+          }
+        } else {
+          login(data.account, data.loggedInState);
+        }
+        if(!isLoggedIn()) {
+          window.location.reload();
+        }
+        else {
+          window.location.replace("/");
+        }
+      }).catch( error => {
+        console.log('failed', error)
+      })
+  };
   render() {
     return (
       <div className="app flex-row align-items-center">
@@ -27,7 +83,7 @@ class Login extends Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username" />
+                        <Input type="text" onChange={this.handleChange} placeholder="Username" autoComplete="username" name="account"/>
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -35,7 +91,7 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" />
+                        <Input type="password" onChange={this.handleChange} placeholder="Password" autoComplete="current-password" name="password"/>
                       </InputGroup>
                       <Row>
                         <Col xs="6">
