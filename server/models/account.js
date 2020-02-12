@@ -11,12 +11,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING(45),
-      allowNull: true
+      allowNull: true,
+      validate: {
+        isEmail: true
+      },
     },
     phone_num: {
       type: DataTypes.STRING(13),
       allowNull: true
-    }
+    },
   }, {
     tableName: 'account'
   });
