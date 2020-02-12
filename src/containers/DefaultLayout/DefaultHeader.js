@@ -80,6 +80,9 @@ class DefaultHeader extends Component {
               <NavItem className="px-3">
                 <Link to="/Login" className="nav-link">Login</Link>
               </NavItem>
+              <NavItem className="px-3">
+              <Link to="/Register" className="nav-link">Register</Link>
+              </NavItem>
             </Nav>
           )
         }
