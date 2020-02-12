@@ -29,6 +29,14 @@ class Register extends Component {
   }
 
   register = async () => {
+    var pwd = this.state.password;
+    var pwd_con = this.state.repeate_password;
+    if (pwd !== pwd_con) {
+      console.log("this2")
+      alert("비밀번호가 일치하지 않습니다.")
+      window.location.reload();
+      return;
+    } 
     axios.post("http://localhost:3001/account/register", {
       username: this.state.username,
       password: this.state.password,
@@ -39,6 +47,7 @@ class Register extends Component {
         let data = res.data;
         console.log(data);
         if (data.error) {
+          console.log("this1")
           switch (data.errorCode) {
             case 6:
               alert("아이디를 입력해주세요.");
@@ -69,7 +78,8 @@ class Register extends Component {
               window.location.reload();
               return
           }
-        } else {
+        }else {
+          console.log("this3")
           alert("회원가입이 완료되었습니다.")
           window.location.replace("/");
         }
@@ -102,15 +112,15 @@ class Register extends Component {
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" value={this.state.password} onChange={this.handleChange} placeholder="Password" autoComplete="new-password" name="password" />
+                      <Input type="password" id="pwd1" value={this.state.password} onChange={this.handleChange} placeholder="Password" autoComplete="new-password" name="password" />
                     </InputGroup>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <i className="icon-lock"></i>
+                          <i className="icon-check"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" value={this.state.repeate_password} onChange={this.handleChange} placeholder="Repeat password" autoComplete="new-password" name="repeate_password" />
+                      <Input type="password" id="pwd2" value={this.state.repeate_password} onChange={this.handleChange} placeholder="Repeat password" autoComplete="new-password" name="repeate_password" />
                     </InputGroup>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
@@ -121,7 +131,7 @@ class Register extends Component {
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          ☏
+                          <i className="icon-phone"></i>
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input type="text" value={this.state.phone_num} onChange={this.handleChange} placeholder="Phone_num" autoComplete="phone_num" name="phone_num" />
