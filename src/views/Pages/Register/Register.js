@@ -31,6 +31,22 @@ class Register extends Component {
   register = async () => {
     var pwd = this.state.password;
     var pwd_con = this.state.repeate_password;
+    var mobile = this.state.phone_num;
+    var mail = this.state.email;
+
+    var check_mobile = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/
+    var check_mail = /^[a-zA-Z0-9_]+[a-zA-Z0-9_]*[@]{1}[a-zA-Z0-9_]*[.][A-Za-z]{1,3}$/
+    
+    if(!check_mobile.test(mobile)){
+      alert("유효하지 않은 핸드폰번호 입니다.")
+      window.location.reload();
+      return;
+    }
+    if(!check_mail.test(mail)){
+      alert("유효하지 않은 이메일 입니다.")
+      window.location.reload();
+      return;
+    }
     if (pwd !== pwd_con) {
       console.log("this2")
       alert("비밀번호가 일치하지 않습니다.")
