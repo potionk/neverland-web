@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "express-validator": "^6.4.0",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "mysql": "^2.18.1",
