@@ -3,13 +3,16 @@ import React, { Component } from 'react';
 import { Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import axios from "axios";
 
+var check_mobile = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/
+var check_mail = /^[a-zA-Z0-9_]+[a-zA-Z0-9_]*[@]{1}[a-zA-Z0-9_]*[.][A-Za-z]{1,3}$/
+
 class Register extends Component {
   state = {
     username: '',
     password: '',
     repeate_password: '',
     phone_num: '',
-    email: ''
+    email: '',
   }
   handleChange = (e) => {
     this.setState({
@@ -24,7 +27,7 @@ class Register extends Component {
       password: '',
       repeate_password: '',
       phone_num: '',
-      email: ''
+      email: '',
     })
   }
 
@@ -33,9 +36,6 @@ class Register extends Component {
     var pwd_con = this.state.repeate_password;
     var mobile = this.state.phone_num;
     var mail = this.state.email;
-
-    var check_mobile = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/
-    var check_mail = /^[a-zA-Z0-9_]+[a-zA-Z0-9_]*[@]{1}[a-zA-Z0-9_]*[.][A-Za-z]{1,3}$/
     
     if(!check_mobile.test(mobile)){
       alert("유효하지 않은 핸드폰번호 입니다.")
@@ -48,7 +48,6 @@ class Register extends Component {
       return;
     }
     if (pwd !== pwd_con) {
-      console.log("this2")
       alert("비밀번호가 일치하지 않습니다.")
       window.location.reload();
       return;
@@ -63,7 +62,6 @@ class Register extends Component {
         let data = res.data;
         console.log(data);
         if (data.error) {
-          console.log("this1")
           switch (data.errorCode) {
             case 6:
               alert("아이디를 입력해주세요.");
@@ -95,7 +93,6 @@ class Register extends Component {
               return
           }
         }else {
-          console.log("this3")
           alert("회원가입이 완료되었습니다.")
           window.location.replace("/");
         }
@@ -138,12 +135,16 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input type="password" id="pwd2" value={this.state.repeate_password} onChange={this.handleChange} placeholder="Repeat password" autoComplete="new-password" name="repeate_password" />
                     </InputGroup>
+                    {/* <div class="alert alert-success">비밀번호가 일치합니다.</div>
+                    <div class="alert alert-danger">비밀번호가 일치하지 않습니다.</div> */}
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>@</InputGroupText>
                       </InputGroupAddon>
                       <Input type="text" value={this.state.email} onChange={this.handleChange} placeholder="Email" autoComplete="email" name="email" />
                     </InputGroup>
+                    {/* <div class="alert alert-success">유효한 이메일 입니다.</div>
+                    <div class="alert alert-danger">유효하지 않은 이메일 입니다.</div> */}
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
@@ -152,6 +153,8 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input type="text" value={this.state.phone_num} onChange={this.handleChange} placeholder="Phone_num" autoComplete="phone_num" name="phone_num" />
                     </InputGroup>
+                    {/* <div class="alert alert-success">유효한 핸드폰 번호 입니다.</div>
+                    <div class="alert alert-danger">유효하지 않은 핸드폰 번호 입니다.</div> */}
                     <Button type="submit" color="success" onClick={this.register}>Create Account</Button>
                   </Form>
                 </CardBody>
