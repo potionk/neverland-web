@@ -1,6 +1,11 @@
 export default {
   items: [
     {
+      name: 'Home',
+      url: '/home',
+      icon: 'icon-home',
+    },
+    {
       name: 'News',
       url: '/news',
       icon: 'icon-bulb',
@@ -12,27 +17,27 @@ export default {
       children: [
         {
           name: '자유게시판',
-          url: '/base/breadcrumbs',
+          url: '/community/free',
           icon: 'icon-pencil',
         },
         {
           name: '정보게시판',
-          url: '/base/breadcrumbs',
+          url: '/community/information',
           icon: 'icon-pencil',
         },
         {
           name: '여행게시판',
-          url: '/base/breadcrumbs',
+          url: '/community/travel',
           icon: 'icon-pencil',
         },
         {
           name: '사진게시판',
-          url: '/base/breadcrumbs',
+          url: '/community/photo',
           icon: 'icon-pencil',
         },
         {
           name: '게임게시판',
-          url: '/base/breadcrumbs',
+          url: '/community/gameBBS',
           icon: 'icon-pencil',
         },
       ],
@@ -44,27 +49,27 @@ export default {
       children: [
         {
           name: '공지사항',
-          url: '/base/breadcrumbs',
+          url: '/game/notice',
           icon: 'icon-bulb',
         },
         {
           name: '업데이트',
-          url: '/base/breadcrumbs',
+          url: '/game/update',
           icon: 'icon-magic-wand',
         },
         {
           name: '이벤트',
-          url: '/base/breadcrumbs',
+          url: '/game/event',
           icon: 'icon-fire',
         },
         {
           name: '랭킹',
-          url: '/base/breadcrumbs',
+          url: '/game/ranking',
           icon: 'icon-people',
         },
         {
           name: '자료실',
-          url: '/base/breadcrumbs',
+          url: '/game/download',
           icon: 'icon-folder-alt',
         },
       ],

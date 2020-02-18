@@ -1,8 +1,8 @@
 import React from 'react';
 
+// Core UI
 const Page404 = React.lazy(() => import('./views/Pages/Page404'));
 const Page500 = React.lazy(() => import('./views/Pages/Page500'));
-
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
 const Carousels = React.lazy(() => import('./views/Base/Carousels'));
@@ -38,12 +38,39 @@ const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
+
+// Neverland web
 const Home = React.lazy(() => import('./views/Home/Home'));
+const Free = React.lazy(() => import('./views/Community/Free/Free'));
+const GameBBS = React.lazy(() => import('./views/Community/GameBBS/GameBBS'));
+const Information = React.lazy(() => import('./views/Community/Information/Information'));
+const Photo = React.lazy(() => import('./views/Community/Photo/Photo'));
+const Travel = React.lazy(() => import('./views/Community/Travel/Travel'));
+const Download = React.lazy(() => import('./views/Game/Download/Download'));
+const Event = React.lazy(() => import('./views/Game/Event/Event'));
+const Notice = React.lazy(() => import('./views/Game/Notice/Notice'));
+const Ranking = React.lazy(() => import('./views/Game/Ranking/Ranking'));
+const Update = React.lazy(() => import('./views/Game/Update/Update'));
+const News = React.lazy(() => import('./views/News/News'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
+  // Neverland web
   { path: '/', exact: true, name: 'Home' },
   { path: '/home', exact: true, name: 'Home', component: Home },
+  { path: '/news', exact: true, name: 'News', component: News },
+  { path: '/community/free', exact: true, name: 'Free', component: Free },
+  { path: '/community/gameBBS', exact: true, name: 'GameBBS', component: GameBBS },
+  { path: '/community/information', exact: true, name: 'Information', component: Information },
+  { path: '/community/photo', exact: true, name: 'HomPhotoe', component: Photo },
+  { path: '/community/travel', exact: true, name: 'Travel', component: Travel },
+  { path: '/game/download', exact: true, name: 'Home', component: Download },
+  { path: '/game/event', exact: true, name: 'Event', component: Event },
+  { path: '/game/notice', exact: true, name: 'Notice', component: Notice },
+  { path: '/game/ranking', exact: true, name: 'Ranking', component: Ranking },
+  { path: '/game/update', exact: true, name: 'Update', component: Update },
+  
+  // Core UI
   { path: '/Page404', name: 'Page404', component: Page404 },
   { path: '/Page500', name: 'Page500', component: Page500 },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
