@@ -38,10 +38,12 @@ const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
+const Home = React.lazy(() => import('./views/Home/Home'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/home', exact: true, name: 'Home', component: Home },
   { path: '/Page404', name: 'Page404', component: Page404 },
   { path: '/Page500', name: 'Page500', component: Page500 },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },

@@ -17,14 +17,12 @@ class Login extends Component {
   }
 
   login = async () => {
-    console.log(this.state);
     axios.post("http://localhost:3001/account/login", {
       account: this.state.account,
       password: this.state.password
     })
       .then( res => {
         let data=res.data;
-        console.log(data);
         if(data.error){
           switch(data.errorCode){
             case 1:

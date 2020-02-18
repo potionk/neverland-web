@@ -10,5 +10,4 @@ export function login(account, loggedInState) {
 export function logout() {
     sessionStorage.removeItem("account")
     sessionStorage.removeItem("loggedInState")
-
 }

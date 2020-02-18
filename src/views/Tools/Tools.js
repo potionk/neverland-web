@@ -17,13 +17,13 @@ import {
   AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav';
+import navigation from './coreUInav';
 // routes config
 import routes from '../../routes';
 
-const DefaultAside = React.lazy(() => import('./DefaultAside'));
-const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
-const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
+const DefaultAside = React.lazy(() => import('../../containers/DefaultLayout/DefaultAside'));
+const DefaultFooter = React.lazy(() => import('../../containers/DefaultLayout/DefaultFooter'));
+const DefaultHeader = React.lazy(() => import('../../containers/DefaultLayout/DefaultHeader'));
 
 class DefaultLayout extends Component {
 
@@ -31,7 +31,6 @@ class DefaultLayout extends Component {
 
   signOut(e) {
     e.preventDefault()
-    // this.props.history.push('/login')
     logout();
     window.location.reload();
   }
@@ -71,7 +70,7 @@ class DefaultLayout extends Component {
                         )} />
                     ) : (null);
                   })}
-                  <Redirect from="/" to="/home" />
+                  {/* <Redirect from="/" to="/dashboard" /> */}
                 </Switch>
               </Suspense>
             </Container>
