@@ -4,9 +4,10 @@ import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle
 import PropTypes from 'prop-types';
 
 // import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/logo.svg'
-import sygnet from '../../assets/img/brand/sygnet.svg'
+// import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+// import logo from '../../assets/img/brand/logo.svg'
+// import sygnet from '../../assets/img/brand/sygnet.svg'
+import { AppSidebarToggler } from '@coreui/react';
 
 import {isLoggedIn} from '../../modules/auth';
 
