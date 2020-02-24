@@ -5,6 +5,7 @@ var router = express.Router();
 router.get('/get_ranking', async (req, res, next) => {
     const characters = await charactersModel.findAll({
      attributes: ['name', 'level', 'exp', 'job', 'gm', 'createdate'],
+     where:{gm:0},
      order: [
              ['level','DESC'],
              ['exp','DESC'],
