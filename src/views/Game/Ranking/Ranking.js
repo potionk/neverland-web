@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import axios from "axios";
-var rankIndex=0;
 
 function UserRow(props) {
   const user = props.user;
-  console.log(props.key);
-  console.log(props);
+  const rank = props.rank;
+  
   // const userLink = `/users/${user.id}`
 
   // const getBadge = (status) => {
@@ -17,10 +16,9 @@ function UserRow(props) {
   //         status === 'Banned' ? 'danger' :
   //           'primary'
   // }
-  rankIndex++;
   return (
-    <tr key={rankIndex}>
-      <th scope="row">{rankIndex}</th>
+    <tr key={rank}>
+      <th scope="row">{rank}</th>
       <td>{user.name}</td>
       <td>{user.level}</td>
       <td>{user.exp}</td>
@@ -83,7 +81,7 @@ class Users extends Component {
                   <tbody>
                   {this.state.usersData ?
                   (userList.map((user, index) =>
-                    <UserRow key={index} user={user}/>
+                    <UserRow key={index} user={user} rank={index+1}/>
                   ))
                   : <tr><td>("Loading...")</td></tr>
                   }
