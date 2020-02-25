@@ -3,6 +3,10 @@ var freeBBSModel = require('../models').free_bbs;
 var freeCommentModel = require('../models').free_comments;
 var router = express.Router();
 
+/**
+ * /get_title_list
+ * @returns 에러코드 or 게시글 전체 조회
+ */
 router.get('/get_title_list', async (req, res, next) => {
     const freeBBS = await freeBBSModel.findAll({
      attributes: ['id', 'title', 'writer_id', 'write_date'],
@@ -19,6 +23,11 @@ router.get('/get_title_list', async (req, res, next) => {
     }
 });
 
+/**
+ * /get_contents
+ * @param id 게시글 아이디 
+ * @returns 에러코드 or 해당 게시글의 상세 내용들 
+ */
 router.post('/get_contents', async (req, res, next) => {
     const id = req.body.id; // 게시물 id
     console.log(id);
