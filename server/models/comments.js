@@ -30,7 +30,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     write_date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     tableName: 'comments'

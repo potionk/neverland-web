@@ -126,7 +126,7 @@ router.post('/write_post', async (req, res, next) => {
 /**
  * /delete_post
  * @param id 게시글 아이디 
- * @returns 에러코드 or 등록된 게시물 정보 반환
+ * @returns 에러코드 or 성공 알림
  */
 router.post('/delete_post', async (req, res, next) => {
     const id = req.body.id; // 게시물 id
@@ -148,6 +148,67 @@ router.post('/delete_post', async (req, res, next) => {
     }
 });
 
+/**
+ * /write_comment
+ * @param writer_id 현재 접속중인 계정 id
+ * @param body_id 현재 읽은 게시물 id
+ * @param contents 댓글 내용
+ * @returns 에러코드 or 등록된 댓글 내용 반환
+ */
+router.post('/write_comment', async (req, res, next) => {
+    const writer_id = req.body.writer_id; // 게시물 id
+    const body_id = req.body.body_id;
+    const contents = req.body.contents;
+    if (!writer_id) { // login 하지 않은 상태
+      return res.send({ error: true, errorCode: 1 })
+    }
+    if (!body_id) { // 현재 읽은 게시물 미입력
+      return res.send({ error: true, errorCode: 2 })
+    }
+    if (!contents) { // 내용 미입력
+        return res.send({ error: true, errorCode: 3 })
+    }
+    try {
+        commentModel.create({
+            writer_id: writer_id,
+            body_id: body_id,
+            contents: contents,
+        })
+        .then(result => {
+            res.json(result);
+        })
+        .catch(err => {
+            res.send({ error: true, errorCode: 5 })
+        });
+    } catch (error) {
+        res.send({ error: true, errorCode: 6 })
+    }
+});
+
+/**
+ * /delete_comment
+ * @param id 댓글 아이디 
+ * @returns 에러코드 or 성공 알림
+ */
+router.post('/delete_comment', async (req, res, next) => {
+    const id = req.body.id; // 게시물 id
+    if (!id) { // id 미입력
+      return res.send({ error: true, errorCode: 1 })
+    }
+    try {
+        commentModel.destroy({
+            where: {id: id}
+        })
+        .then(result => {
+            res.json({ result: "success", state: result});
+        })
+        .catch(err => {
+            res.send({ error: true, errorCode: 2 })
+        });
+    } catch (error) {
+        res.send({ error: true, errorCode: 3 })
+    }
+});
 
 
 module.exports = router;
