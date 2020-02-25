@@ -5,7 +5,11 @@ var router = express.Router();
 
 /**
  * get_title_list : 게시글 목록을 반환
- * get_contents : 게시글 상세 내용을 반환
+ * get_contents : 게시글 상세 내용을 반환 및 조회수 1 증가
+ * write_post : 게시글 작성
+ * delete_post : 게시글 삭제
+ * write_comment : 댓글 작성 (원글 삭제시 댓글도 같이 삭제 됨)
+ * delete_comment : 댓글 삭제
  */
 
 /**
