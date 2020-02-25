@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('free_bbs', {
+  return sequelize.define('bbs', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -28,8 +28,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    class: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+      defaultValue: 'free'
+    },
+    views: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      defaultValue: '0'
     }
   }, {
-    tableName: 'free_bbs'
+    tableName: 'bbs'
   });
 };

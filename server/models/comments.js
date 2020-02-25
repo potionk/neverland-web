@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('free_comments', {
+  return sequelize.define('comments', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: true,
       references: {
-        model: 'free_bbs',
+        model: 'bbs',
         key: 'id'
       }
     },
@@ -33,6 +33,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'free_comments'
+    tableName: 'comments'
   });
 };
