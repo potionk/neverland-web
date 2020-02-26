@@ -24,13 +24,13 @@ router.post('/get_title_list', async (req, res, next) => {
     if(!(_class=="free"||_class=="game"||_class=="information"||_class=="photo"||_class=="travel"||_class=="event"||_class=="notice"||_class=="update")){
         return res.send({ error: true, errorCode: 2 })
     }
-    const freeBBS = await bbsModel.findAll({
+    const bbs = await bbsModel.findAll({
      where: {class: _class},
-     attributes: ['id', 'title', 'writer_id', 'write_date'],
+     attributes: ['id', 'title', 'writer_id', 'write_date', 'views'],
      order: [['write_date','DESC']]
     });
     try {
-        res.send({ freeBBS });
+        res.send({ bbs });
     } catch (error) {
         console.log(error);
         res.send({

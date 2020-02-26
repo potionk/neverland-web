@@ -1,38 +1,51 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import axios from "axios";
 
-import FreeData from './FreeData'
-
 function UserRow(props) {
-  const user = props.user
-  const userLink = `/users/${user.id}`
-
-  const getBadge = (status) => {
-    return status === 'Active' ? 'success' :
-      status === 'Inactive' ? 'secondary' :
-        status === 'Pending' ? 'warning' :
-          status === 'Banned' ? 'danger' :
-            'primary'
-  }
+  const post = props.post
+  const postLink = `/freeBBS/${post.id}`
 
   return (
-    <tr key={user.id.toString()}>
-      <td>{user.id}</td>
-      <td><Link to={userLink}>{user.title}</Link></td>
-      <td>{user.views}</td>
-      <td><Link to={userLink}>{user.name}</Link></td>
-      <td>{user.registered}</td>
+    <tr key={post.id.toString()}>
+      <td>{post.id}</td>
+      <td><Link to={postLink}>{post.title}</Link></td>
+      <td>{post.views}</td>
+      <td><Link to={postLink}>{post.writer_id}</Link></td>
+      <td>{post.write_date}</td>
     </tr>
   )
 }
 
-class Users extends Component {
+class Free extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {list: null};
+    this.getFreeBBSList();
+  }
 
+  componentDidMount() {
+    this.getFreeBBSList();
+  }
+
+  getFreeBBSList = async () => {
+    axios.post("http://localhost:3001/community/get_title_list", {
+      class: "free",
+      }).then( res => {
+        let data=res.data;
+        if(data.error){
+          alert("DB에러");
+        } else {
+          console.log(data.bbs);
+          this.setState({list: data.bbs});
+        }
+      }).catch( error => {
+        console.log('failed', error)
+      })
+  };
   render() {
-    const userList = FreeData.filter((user) => user.id < 10)
-    // const userList = this.state.usersData;
+    const list = this.state.list;
 
     return (
       <div className="animated fadeIn">
@@ -40,7 +53,7 @@ class Users extends Component {
           <Col xl="12">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Post <small className="text-muted">Free</small>
+                <i className="fa fa-align-justify"></i>자유게시판
               </CardHeader>
               <CardBody>
                 <Table responsive hover>
@@ -54,9 +67,12 @@ class Users extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {userList.map((user, index) =>
-                      <UserRow key={index} user={user} />
-                    )}
+                  {this.state.list ?
+                  (list.map((post, index) =>
+                    <UserRow key={index} post={post}/>
+                  ))
+                  : <tr><td>("Loading...")</td></tr>
+                  }
                   </tbody>
                 </Table>
                 <Pagination className="d-flex justify-content-center">
@@ -88,4 +104,4 @@ class Users extends Component {
   }
 }
 
-export default Users;
+export default Free;
