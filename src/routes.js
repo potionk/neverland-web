@@ -52,6 +52,7 @@ const Notice = React.lazy(() => import('./views/Game/Notice/Notice'));
 const Ranking = React.lazy(() => import('./views/Game/Ranking/Ranking'));
 const Update = React.lazy(() => import('./views/Game/Update/Update'));
 const News = React.lazy(() => import('./views/News/News'));
+const Write = React.lazy(() => import('./views/Community/Write'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -69,6 +70,7 @@ const routes = [
   { path: '/game/notice', exact: true, name: 'Notice', component: Notice },
   { path: '/game/ranking', exact: true, name: 'Ranking', component: Ranking },
   { path: '/game/update', exact: true, name: 'Update', component: Update },
+  { path: '/community/write', exact: true, name: 'Write', component: Write },
   
   // Core UI
   { path: '/Page404', name: 'Page404', component: Page404 },
