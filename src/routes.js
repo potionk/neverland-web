@@ -42,6 +42,7 @@ const User = React.lazy(() => import('./views/Users/User'));
 // Neverland web
 const Home = React.lazy(() => import('./views/Home/Home'));
 const Free = React.lazy(() => import('./views/Community/Free/Free'));
+const FreeBBS = React.lazy(() => import('./views/Community/Free/FreeBBS'));
 const GameBBS = React.lazy(() => import('./views/Community/GameBBS/GameBBS'));
 const Information = React.lazy(() => import('./views/Community/Information/Information'));
 const Photo = React.lazy(() => import('./views/Community/Photo/Photo'));
@@ -61,6 +62,7 @@ const routes = [
   { path: '/home', exact: true, name: 'Home', component: Home },
   { path: '/news', exact: true, name: 'News', component: News },
   { path: '/community/free', exact: true, name: 'Free', component: Free },
+  { path: '/community/free/:id', exact: true, name: 'Free Details', component: FreeBBS },
   { path: '/community/gameBBS', exact: true, name: 'GameBBS', component: GameBBS },
   { path: '/community/information', exact: true, name: 'Information', component: Information },
   { path: '/community/photo', exact: true, name: 'HomPhotoe', component: Photo },
