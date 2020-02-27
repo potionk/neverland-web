@@ -55,7 +55,7 @@ router.post('/get_contents', async (req, res, next) => {
         const bbsContents = await bbsModel.findOne(
             {
                 where: {id: id},
-                attributes: ['contents', 'writer_id', 'write_date', 'class', 'views'],
+                attributes: ['title', 'contents', 'writer_id', 'write_date', 'class', 'views'],
             }
         );
         const commentContents = await commentModel.findAll(
