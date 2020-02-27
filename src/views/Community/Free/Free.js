@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import axios from "axios";
 
-function UserRow(props) {
+function PostRow(props) {
   const post = props.post
-  const postLink = `/freeBBS/${post.id}`
+  const postLink = `/community/free/${post.id}`
 
   return (
     <tr key={post.id.toString()}>
@@ -69,7 +69,7 @@ class Free extends Component {
                   <tbody>
                   {this.state.list ?
                   (list.map((post, index) =>
-                    <UserRow key={index} post={post}/>
+                    <PostRow key={index} post={post}/>
                   ))
                   : <tr><td>("Loading...")</td></tr>
                   }
