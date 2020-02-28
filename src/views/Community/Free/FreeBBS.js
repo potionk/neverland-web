@@ -2,20 +2,6 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table, Form, FormGroup, Input } from 'reactstrap';
 import axios from "axios";
 
-function PostRow(props) {
-    const post = props.post
-
-    return (
-        <tr key={post.id}>
-            <td>{post.contents}</td>
-            <td>{post.writer_id}</td>
-            <td>{post.write_date}</td>
-            <td>{post.class}</td>
-            <td>{post.views}</td>
-        </tr>
-    )
-}
-
 function Split(props) {
     const post = props.post
     const createDate = (createdate) => {
