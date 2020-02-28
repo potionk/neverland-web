@@ -3,11 +3,15 @@ export function isLoggedIn() {
 }
 
 export function login(account, loggedInState) {
-    sessionStorage.setItem("account", account)
-    sessionStorage.setItem("loggedInState", loggedInState)
+    sessionStorage.setItem("account", account);
+    sessionStorage.setItem("loggedInState", loggedInState);
 }
 
 export function logout() {
-    sessionStorage.removeItem("account")
-    sessionStorage.removeItem("loggedInState")
+    sessionStorage.removeItem("account");
+    sessionStorage.removeItem("loggedInState");
+}
+
+export function getLoggedInAccount() {
+    sessionStorage.getItem("account");
 }
