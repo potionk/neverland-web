@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Button } from 'reactstrap';
 import axios from "axios";
 
 function PostRow(props) {
@@ -54,6 +54,7 @@ class Free extends Component {
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i>자유게시판
+                <Button color="primary" size="sm" className="card-header-actions" href="http://localhost:3000/#/community/write">New</Button>           
               </CardHeader>
               <CardBody>
                 <Table responsive hover>
