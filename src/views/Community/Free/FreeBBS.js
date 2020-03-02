@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Col, Row, Table, Form, FormGroup, Input } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Row, Button, Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import axios from "axios";
 
 function Split(props) {
@@ -84,8 +84,14 @@ class FreeBBS extends Component {
                                         </Col>
                                     </FormGroup>
                                     <FormGroup row>
-                                        <Col xs="12" md="12">
-                                            <Input type="textarea" name="textarea-input" id="textarea-input" rows="2" placeholder="내용..." />
+                                        <Col xs="12" md="8">
+                                            <InputGroup>
+                                                <Input type="textarea" name="textarea-input" id="textarea-input" size="16" placeholder="내용..." />
+                                                &nbsp;
+                                            <InputGroupAddon addonType="append">
+                                                    <Button color="primary" size="sm" className="card-header-actions">등록</Button>
+                                                </InputGroupAddon>
+                                            </InputGroup>
                                         </Col>
                                     </FormGroup>
                                 </Form>
