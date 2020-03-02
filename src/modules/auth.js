@@ -13,5 +13,5 @@ export function logout() {
 }
 
 export function getLoggedInAccount() {
-    sessionStorage.getItem("account");
+    return sessionStorage.getItem("account");
 }
