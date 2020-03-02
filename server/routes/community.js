@@ -96,9 +96,9 @@ router.post('/write_post', async (req, res, next) => {
     const title = req.body.title;
     const contents = req.body.contents;
     const _class = req.body.class;
-    if (!writer_id) { // login 하지 않은 상태
-      return res.send({ error: true, errorCode: 1 })
-    }
+    // if (!writer_id) { // login 하지 않은 상태
+    //   return res.send({ error: true, errorCode: 1 })
+    // }
     if (!title) { // 제목 미입력
       return res.send({ error: true, errorCode: 2 })
     }
