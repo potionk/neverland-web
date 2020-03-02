@@ -8,7 +8,7 @@ class Write extends Component {
     writer_id:getLoggedInAccount(),
     title: '',
     contents: '',
-    class: '',
+    class: 'free',
   }
   handleChange = (e) => {
     this.setState({
@@ -60,6 +60,7 @@ class Write extends Component {
   render() {
     console.log(this.state);
     console.log(getLoggedInAccount());
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -76,11 +77,11 @@ class Write extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" name="class" id="select" value={this.state.value} onChange={this.handleChange}>
-                        <option value="자유게시판">자유게시판</option>
-                        <option value="정보게시판">정보게시판</option>
-                        <option value="여행게시판">여행게시판</option>
-                        <option value="사진게시판">사진게시판</option>
-                        <option value="게임게시판">게임게시판</option>
+                        <option value="free">자유게시판</option>
+                        <option value="information">정보게시판</option>
+                        <option value="travel">여행게시판</option>
+                        <option value="photo">사진게시판</option>
+                        <option value="game">게임게시판</option>
                       </Input>
                     </Col>
                   </FormGroup>
@@ -132,7 +133,7 @@ class Write extends Component {
               </CardBody>
               <CardFooter>
                 <Button type="submit" size="sm" onClick={this.write} color="primary" className="mr-1"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
+                <Button type="reset" size="sm" href="http://localhost:3000/#/community/free" color="danger"><i className="fa fa-ban"></i> Back</Button>
                 {/* <Button type="submit" color="primary">Save changes</Button>
                 <Button color="secondary">Cancel</Button> */}
               </CardFooter>
