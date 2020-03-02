@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Button } from 'reactstrap';
 import axios from "axios";
+import {isLoggedIn} from '../../../modules/auth';
 
 function PostRow(props) {
   const post = props.post
@@ -46,6 +47,14 @@ class Free extends Component {
   };
   render() {
     const list = this.state.list;
+    let button = null;
+
+    if(isLoggedIn()){
+      button = <Button color="primary" size="sm" className="card-header-actions" href="http://localhost:3000/#/community/write">New</Button>;           
+    }
+    else{
+      button = <Button color="primary" size="sm" className="card-header-actions" onClick={() => {alert("로그인을 하고 이용해 주세요")}} >New</Button>;
+    }
 
     return (
       <div className="animated fadeIn">
@@ -54,7 +63,7 @@ class Free extends Component {
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i>자유게시판
-                <Button color="primary" size="sm" className="card-header-actions" href="http://localhost:3000/#/community/write">New</Button>           
+                {button}
               </CardHeader>
               <CardBody>
                 <Table responsive hover>
