@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap';
 import axios from "axios";
+import { withRouter } from 'react-router-dom'
 import { getLoggedInAccount } from '../../modules/auth';
 
 class Write extends Component {
@@ -51,7 +52,7 @@ class Write extends Component {
           }
         } else {
           alert("게시글이 등록되었습니다.")
-          window.location.replace("/");
+          window.location.replace(`http://localhost:3000/#/community/${this.state.class}`);
         }
       }).catch(error => {
         console.log('failed', error)
