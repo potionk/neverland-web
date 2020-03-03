@@ -134,7 +134,7 @@ class Write extends Component {
               </CardBody>
               <CardFooter>
                 <Button type="submit" size="sm" onClick={this.write} color="primary" className="mr-1"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                <Button type="reset" size="sm" href="http://localhost:3000/#/community/free" color="danger"><i className="fa fa-ban"></i> Back</Button>
+                <Button type="reset" size="sm" href={`http://localhost:3000/#/community/${this.state.class}`} color="danger"><i className="fa fa-ban"></i> Back</Button>
                 {/* <Button type="submit" color="primary">Save changes</Button>
                 <Button color="secondary">Cancel</Button> */}
               </CardFooter>
