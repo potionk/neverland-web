@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Col, Row, Button, Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Row, Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, ButtonToolbar, ButtonGroup } from 'reactstrap';
 import axios from "axios";
 import { getLoggedInAccount, isLoggedIn } from '../../../modules/auth';
 
@@ -107,6 +107,17 @@ class FreeBBS extends Component {
         console.log(this.state.commentContents);
         console.log(this.state.writer_id);
         return (
+            <div>
+                <p>
+                <ButtonToolbar className="justify-content-between">
+                <Button color="secondary" href="http://localhost:3000/#/community/Free">Back</Button>
+                <ButtonGroup className="card-header-actions">
+                <Button color="secondary">Delete</Button>
+                &nbsp;
+                <Button color="secondary">Edit</Button>
+                </ButtonGroup>
+                </ButtonToolbar>
+                </p>
             <div className="animated fadeIn" >
                 <Row>
                     <Col xs="12" md="12">
@@ -163,6 +174,7 @@ class FreeBBS extends Component {
                         </Card>
                     </Col>
                 </Row>
+            </div>
             </div>
         )
     }
