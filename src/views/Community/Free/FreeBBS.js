@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import axios from "axios";
+import { getLoggedInAccount, isLoggedIn } from '../../../modules/auth';
 
 function Split(props) {
     const post = props.post
@@ -12,7 +13,33 @@ function Split(props) {
     return createDate(post.write_date)
 }
 
+// function PostComment(props) {
+//     const comment = props.comment
+
+//     return (
+//         <tr key={post.body_id.toString()}>
+//             <td>{comment.writer_id}</td>
+//             <td>{comment.contents}</td>
+//             <td>{comment.write_date}</td>
+//         </tr>
+//     )
+// }
+
 class FreeBBS extends Component {
+    state = {
+        commentContents: '',
+    }
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState({
+            commentContents: '',
+        })
+    }
     constructor(props) {
         super(props);
         this.state = { post: null };
@@ -38,10 +65,47 @@ class FreeBBS extends Component {
         }).catch(error => {
             console.log('failed', error)
         })
-    };
+    }
+    write = async () => {
+        axios.post("http://localhost:3001/community/write_comment", {
+            writer_id: getLoggedInAccount(),
+            contents: this.state.commentContents,
+        })
+            .then(res => {
+                let data = res.data;
+                console.log(data);
+                if (data.error) {
+                    switch (data.errorCode) {
+                        case 3:
+                            alert("내용을 입력하세요.")
+                            window.location.reload();
+                            return;
+                        default:
+                            alert("잘못된 접근입니다.")
+                            window.location.reload();
+                            return
+                    }
+                } else {
+                    alert("댓글이 등록되었습니다.")
+                    window.location.reload();
+                }
+            }).catch(error => {
+                console.log('failed', error)
+            })
+    }
     render() {
         const post = this.state.post;
+        let button = null;
+
+        if (isLoggedIn()) {
+            button = <Button color="primary" size="sm" className="card-header-actions" onClick={this.write}>등록</Button>
+        }
+        else {
+            button = <Button color="primary" size="sm" className="card-header-actions" onClick={() => { alert("로그인을 하고 이용해 주세요") }} >등록</Button>;
+        }
         console.log(post);
+        console.log(this.state.commentContents);
+        console.log(this.state.writer_id);
         return (
             <div className="animated fadeIn" >
                 <Row>
@@ -86,10 +150,10 @@ class FreeBBS extends Component {
                                     <FormGroup row>
                                         <Col xs="12" md="8">
                                             <InputGroup>
-                                                <Input type="textarea" name="textarea-input" id="textarea-input" size="16" placeholder="내용..." />
+                                                <Input type="textarea" name="commentContents" id="textarea-input" value={this.state.commentContents} onChange={this.handleChange} size="16" placeholder="내용..." />
                                                 &nbsp;
                                             <InputGroupAddon addonType="append">
-                                                    <Button color="primary" size="sm" className="card-header-actions">등록</Button>
+                                                    {button}
                                                 </InputGroupAddon>
                                             </InputGroup>
                                         </Col>

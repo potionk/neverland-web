@@ -163,12 +163,12 @@ router.post('/write_comment', async (req, res, next) => {
     const writer_id = req.body.writer_id; // 게시물 id
     const body_id = req.body.body_id;
     const contents = req.body.contents;
-    if (!writer_id) { // login 하지 않은 상태
-      return res.send({ error: true, errorCode: 1 })
-    }
-    if (!body_id) { // 현재 읽은 게시물 미입력
-      return res.send({ error: true, errorCode: 2 })
-    }
+    // if (!writer_id) { // login 하지 않은 상태
+    //   return res.send({ error: true, errorCode: 1 })
+    // }
+    // if (!body_id) { // 현재 읽은 게시물 미입력
+    //   return res.send({ error: true, errorCode: 2 })
+    // }
     if (!contents) { // 내용 미입력
         return res.send({ error: true, errorCode: 3 })
     }
