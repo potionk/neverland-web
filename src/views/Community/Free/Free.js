@@ -14,7 +14,6 @@ function PostRow(props) {
     let currentMonth = current.getMonth() + 1;
     let currentDate = current.getDate();
     
-    console.log(createdate);
     let ymd=createdate.split("T");
     let ymdSplit=ymd[0].split("-");
     if(currentYear==ymdSplit[0]&&currentMonth==ymdSplit[1]&&currentDate==ymdSplit[2]){
@@ -61,15 +60,44 @@ class Free extends Component {
         console.log('failed', error)
       })
   };
+
+  makePagination(){
+    // let pages = Math.ceil(this.state.list.length/15);
+    let pageNumMax = Math.ceil(this.state.list.length/15);
+    let pages = [];
+    for(let i=1; i<=pageNumMax; i++){
+      pages.push(i);
+    }
+    return (
+      <Pagination className="d-flex justify-content-center">
+        <PaginationItem>
+          <PaginationLink previous tag="button"></PaginationLink>
+        </PaginationItem>
+        {pages.map((num, index) => (
+          <PaginationItem key={index}>
+            <PaginationLink tag="button">{num}</PaginationLink>
+          </PaginationItem>
+        ))}
+        <PaginationItem>
+          <PaginationLink next tag="button"></PaginationLink>
+        </PaginationItem>
+      </Pagination>
+    )
+  }
   render() {
     const list = this.state.list;
     let button = null;
+    let pagination = null;
 
     if(isLoggedIn()){
       button = <Button color="primary" size="sm" className="card-header-actions" href="http://localhost:3000/#/community/write">New</Button>;           
     }
     else{
       button = <Button color="primary" size="sm" className="card-header-actions" onClick={() => {alert("로그인을 하고 이용해 주세요")}} >New</Button>;
+    }
+
+    if(this.state.list){
+      pagination = this.makePagination();
     }
 
     return (
@@ -101,26 +129,7 @@ class Free extends Component {
                   }
                   </tbody>
                 </Table>
-                <Pagination className="d-flex justify-content-center">
-                  <PaginationItem>
-                    <PaginationLink previous tag="button"></PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">4</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink next tag="button"></PaginationLink>
-                  </PaginationItem>
-                </Pagination>
+                {pagination}
               </CardBody>
             </Card>
           </Col>
