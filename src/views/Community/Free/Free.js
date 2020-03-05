@@ -10,17 +10,13 @@ function PostRow(props) {
 
   const createDate = (createdate) => {
     let current = new Date();
-    let currentYear = current.getFullYear();
-    let currentMonth = current.getMonth() + 1;
-    let currentDate = current.getDate();
+    let koreaDate=new Date(createdate);
     
-    let ymd=createdate.split("T");
-    let ymdSplit=ymd[0].split("-");
-    if(currentYear==ymdSplit[0]&&currentMonth==ymdSplit[1]&&currentDate==ymdSplit[2]){
-      let time=ymd[1].split(".");
-      return time[0];
+    if(current.getFullYear()==koreaDate.getFullYear()&&current.getMonth()==koreaDate.getMonth()
+      &&current.getDate()==koreaDate.getDate()){
+      return koreaDate.getHours()+":"+koreaDate.getMinutes();
     } else {
-      return ymd[0];
+      return koreaDate.getFullYear()+"."+(koreaDate.getMonth()+1) +"."+koreaDate.getDate()+".";
     }
   }
 
@@ -62,7 +58,10 @@ class Free extends Component {
   };
 
   makePagination(){
-    // let pages = Math.ceil(this.state.list.length/15);
+    // console.log(this.state.list[0].write_date);
+    // let date=new Date(this.state.list[0].write_date);
+    // console.log(date)
+    
     let pageNumMax = Math.ceil(this.state.list.length/15);
     let pages = [];
     for(let i=1; i<=pageNumMax; i++){

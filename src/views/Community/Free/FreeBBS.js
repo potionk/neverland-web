@@ -6,9 +6,8 @@ import { getLoggedInAccount, isLoggedIn } from '../../../modules/auth';
 function Split(props) {
     const post = props.post
     const createDate = (createdate) => {
-        let date = createdate.split("T");
-        let time = date[1].split(".");
-        return date[0].replaceAll("-", ".") + " " + time[0]
+        let koreaDate=new Date(createdate);
+        return koreaDate.getFullYear()+"."+(koreaDate.getMonth()+1) +"."+koreaDate.getDate()+".  "+koreaDate.getHours()+":"+koreaDate.getMinutes();
     }
     return createDate(post.write_date)
 }
