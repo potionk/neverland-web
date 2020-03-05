@@ -8,13 +8,30 @@ function PostRow(props) {
   const post = props.post
   const postLink = `/community/free/${post.id}`
 
+  const createDate = (createdate) => {
+    let current = new Date();
+    let currentYear = current.getFullYear();
+    let currentMonth = current.getMonth() + 1;
+    let currentDate = current.getDate();
+    
+    console.log(createdate);
+    let ymd=createdate.split("T");
+    let ymdSplit=ymd[0].split("-");
+    if(currentYear==ymdSplit[0]&&currentMonth==ymdSplit[1]&&currentDate==ymdSplit[2]){
+      let time=ymd[1].split(".");
+      return time[0];
+    } else {
+      return ymd[0];
+    }
+  }
+
   return (
     <tr key={post.id.toString()}>
       <td>{post.id}</td>
       <td><Link to={postLink}>{post.title}</Link></td>
       <td>{post.views}</td>
       <td><Link to={postLink}>{post.writer_id}</Link></td>
-      <td>{post.write_date}</td>
+      <td>{createDate(post.write_date)}</td>
     </tr>
   )
 }
@@ -38,7 +55,6 @@ class Free extends Component {
         if(data.error){
           alert("DB에러");
         } else {
-          console.log(data.bbs);
           this.setState({list: data.bbs});
         }
       }).catch( error => {

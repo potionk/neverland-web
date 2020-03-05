@@ -59,9 +59,8 @@ class Write extends Component {
       })
   }
   render() {
-    console.log(this.state);
-    console.log(getLoggedInAccount());
-
+    // console.log(this.state);
+    // console.log(getLoggedInAccount());
     return (
       <div className="animated fadeIn">
         <Row>
