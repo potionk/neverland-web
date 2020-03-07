@@ -19,7 +19,7 @@ function PostRow(props) {
       return koreaDate.getFullYear()+"."+(koreaDate.getMonth()+1) +"."+koreaDate.getDate()+".";
     }
   }
-
+  
   return (
     <tr key={post.id.toString()}>
       <td>{post.id}</td>
@@ -34,12 +34,24 @@ function PostRow(props) {
 class Free extends Component {
   constructor(props) {
     super(props);
-    this.state = {list: null};
+    let id;
+    let page;
+    if(this.props.match.params.id)
+      id=this.props.match.params.id.split("_");
+    if(id!=null)
+      page=parseInt(id[1]);
+    else
+      page=1;
+    this.state = {
+      list: null,
+      page: page,
+    };
     this.getFreeBBSList();
   }
 
   componentDidMount() {
     this.getFreeBBSList();
+    console.log(this.state.page)
   }
 
   getFreeBBSList = async () => {
@@ -54,31 +66,45 @@ class Free extends Component {
         }
       }).catch( error => {
         console.log('failed', error)
-      })
+      }) 
   };
 
-  makePagination(){
-    // console.log(this.state.list[0].write_date);
-    // let date=new Date(this.state.list[0].write_date);
-    // console.log(date)
-    
+  refresh(num){
+    window.location.href="/#/community/free_"+num;
+    window.location.reload();
+  }
+
+  makePagination(){ 
     let pageNumMax = Math.ceil(this.state.list.length/15);
-    let pages = [];
-    for(let i=1; i<=pageNumMax; i++){
-      pages.push(i);
+    let prevPages=[];
+    let curPage = this.state.page;
+    let nextPages=[];
+    for(let i=1; i<curPage; i++){
+      prevPages.push(i);
+    }
+    for(let i=curPage+1; i<=pageNumMax; i++){
+      nextPages.push(i);
     }
     return (
-      <Pagination className="d-flex justify-content-center">
+      <Pagination className="d-flex justify-content-center" id="pagination">
         <PaginationItem>
           <PaginationLink previous tag="button"></PaginationLink>
         </PaginationItem>
-        {pages.map((num, index) => (
+        {prevPages.map((num, index) => (
           <PaginationItem key={index}>
-            <PaginationLink tag="button">{num}</PaginationLink>
+            <PaginationLink href={"/#/community/free_"+num} onClick={()=>this.refresh(num)}>{num}</PaginationLink>
+          </PaginationItem>
+        ))}
+        <PaginationItem active>
+            <PaginationLink href={"/#/community/free_"+curPage} onClick={()=>this.refresh(curPage)}>{curPage}</PaginationLink>
+          </PaginationItem>
+        {nextPages.map((num, index) => (
+          <PaginationItem key={index} onClick={this.test}>
+            <PaginationLink href={"/#/community/free_"+num} onClick={()=>this.refresh(num)}>{num}</PaginationLink>
           </PaginationItem>
         ))}
         <PaginationItem>
-          <PaginationLink next tag="button"></PaginationLink>
+        <PaginationLink next tag="button"></PaginationLink>
         </PaginationItem>
       </Pagination>
     )
@@ -121,7 +147,12 @@ class Free extends Component {
                   </thead>
                   <tbody>
                   {this.state.list ?
-                  (list.map((post, index) =>
+                  (list.filter((post, index)=>{
+                    console.log(this.state.list)
+                    console.log(this.state.list.length-(this.state.page)*15+1)
+                    console.log(this.state.list.length-(this.state.page-1)*15)
+                    return index>=(this.state.page-1)*15&&index<=(this.state.page)*15-1;
+                  }).map((post, index) =>
                     <PostRow key={index} post={post}/>
                   ))
                   : <tr><td>("Loading...")</td></tr>

@@ -62,6 +62,7 @@ const routes = [
   { path: '/home', exact: true, name: 'Home', component: Home },
   { path: '/news', exact: true, name: 'News', component: News },
   { path: '/community/free', exact: true, name: 'Free', component: Free },
+  { path: '/community/free:id', exact: true, name: 'Free', component: Free },
   { path: '/community/free/:id', exact: true, name: 'Free Details', component: FreeBBS },
   { path: '/community/gameBBS', exact: true, name: 'GameBBS', component: GameBBS },
   { path: '/community/information', exact: true, name: 'Information', component: Information },
