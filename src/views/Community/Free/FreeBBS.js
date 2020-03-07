@@ -12,21 +12,28 @@ function Split(props) {
     return createDate(post.write_date)
 }
 
-// function PostComment(props) {
-//     const comment = props.comment
-
-//     return (
-//         <tr key={post.body_id.toString()}>
-//             <td>{comment.writer_id}</td>
-//             <td>{comment.contents}</td>
-//             <td>{comment.write_date}</td>
-//         </tr>
-//     )
-// }
+function PostComment(props) {
+    const comment = props.comment
+    const writeDate = (date) => {
+        let koreaDate=new Date(date);
+        return koreaDate.getFullYear()+"."+(koreaDate.getMonth()+1) +"."+koreaDate.getDate()+".  "+koreaDate.getHours()+":"+koreaDate.getMinutes();
+    }
+    return (
+        // 일단 그냥 로드만 하게 해둠
+        <div>
+            {comment.writer_id}&nbsp;
+            {comment.contents}&nbsp;
+            {writeDate(comment.write_date)}
+        </div>
+    )
+}
 
 class FreeBBS extends Component {
     state = {
-        commentContents: '',
+        loggedInAccount:'',
+        bbsContents:'', // 현재 게시물
+        commentContents: '', // 현재 게시물의 댓글들
+        writeComment:'' // 작성할 댓글 내용
     }
     handleChange = (e) => {
         this.setState({
@@ -36,16 +43,15 @@ class FreeBBS extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.setState({
-            commentContents: '',
+            writeComment: '',
         })
     }
     constructor(props) {
         super(props);
-        this.state = { post: null };
-        this.getFreeBBSList();
     }
 
     componentDidMount() {
+        this.setState({loggedInAccount:getLoggedInAccount()})
         this.getFreeBBSList();
     }
 
@@ -57,9 +63,7 @@ class FreeBBS extends Component {
             if (data.error) {
                 alert("DB에러");
             } else {
-                console.log(data.bbsContents);
-                this.setState({ post: data.bbsContents });
-                // console.log(this.state.post)
+                this.setState({ bbsContents: data.bbsContents, commentContents: data.commentContents});
             }
         }).catch(error => {
             console.log('failed', error)
@@ -67,8 +71,9 @@ class FreeBBS extends Component {
     }
     write = async () => {
         axios.post("http://localhost:3001/community/write_comment", {
-            writer_id: getLoggedInAccount(),
-            contents: this.state.commentContents,
+            writer_id: this.state.loggedInAccount,
+            contents: this.state.writeComment,
+            body_id: this.props.match.params.id
         })
             .then(res => {
                 let data = res.data;
@@ -92,22 +97,43 @@ class FreeBBS extends Component {
                 console.log('failed', error)
             })
     }
-    render() {
-        const post = this.state.post;
-        let button = null;
 
+    getComments(){
+        let comments=this.state.commentContents;
+        
+        return(
+            (comments.map((comment, index) =>
+                <PostComment key={index} comment={comment}/>
+            ))
+        );
+    }
+
+    getCounts(){
+        console.log(this.state.bbsContents)
+        return (
+            <div><strong>댓글 {this.state.commentContents.length}&nbsp;|&nbsp;조회수 {this.state.bbsContents.views}&nbsp;</strong></div>
+        );
+    }
+
+    render() {
+        const post = this.state.bbsContents;
+        let button = null;
         if (isLoggedIn()) {
             button = <Button color="primary" size="sm" className="card-header-actions" onClick={this.write}>등록</Button>
         }
         else {
             button = <Button color="primary" size="sm" className="card-header-actions" onClick={() => { alert("로그인을 하고 이용해 주세요") }} >등록</Button>;
         }
-        console.log(post);
-        console.log(this.state.commentContents);
-        console.log(this.state.writer_id);
+
+        let comments = null;
+        let counts = null;
+        if(post){
+            comments = this.getComments();
+            counts = this.getCounts();
+        }
+
         return (
             <div>
-                <p>
                 <ButtonToolbar className="justify-content-between">
                 <Button color="secondary" href="http://localhost:3000/#/community/Free">Back</Button>
                 <ButtonGroup className="card-header-actions">
@@ -116,7 +142,7 @@ class FreeBBS extends Component {
                 <Button color="secondary">Edit</Button>
                 </ButtonGroup>
                 </ButtonToolbar>
-                </p>
+                <br/>
             <div className="animated fadeIn" >
                 <Row>
                     <Col xs="12" md="12">
@@ -154,13 +180,16 @@ class FreeBBS extends Component {
                                     </FormGroup>
                                     <FormGroup row>
                                         <Col xs="8" md="12">
-                                            <div>{post ? <div><strong>댓글&nbsp;|&nbsp;조회수&nbsp;</strong></div> : ("Loading...")}</div>
+                                            {counts}
                                         </Col>
                                     </FormGroup>
+                                    <hr className="my-2"/>
+                                    {comments}
+                                    <br/>
                                     <FormGroup row>
                                         <Col xs="12" md="8">
                                             <InputGroup>
-                                                <Input type="textarea" name="commentContents" id="textarea-input" value={this.state.commentContents} onChange={this.handleChange} size="16" placeholder="내용..." />
+                                                <Input type="textarea" name="writeComment" id="textarea-input" value={this.state.writeComment} onChange={this.handleChange} size="16" placeholder="내용..." />
                                                 &nbsp;
                                             <InputGroupAddon addonType="append">
                                                     {button}

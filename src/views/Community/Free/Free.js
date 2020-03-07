@@ -148,9 +148,6 @@ class Free extends Component {
                   <tbody>
                   {this.state.list ?
                   (list.filter((post, index)=>{
-                    console.log(this.state.list)
-                    console.log(this.state.list.length-(this.state.page)*15+1)
-                    console.log(this.state.list.length-(this.state.page-1)*15)
                     return index>=(this.state.page-1)*15&&index<=(this.state.page)*15-1;
                   }).map((post, index) =>
                     <PostRow key={index} post={post}/>

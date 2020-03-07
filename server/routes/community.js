@@ -62,6 +62,7 @@ router.post('/get_contents', async (req, res, next) => {
             {
                 where: {body_id: id},
                 attributes: ['contents', 'writer_id', 'write_date'],
+                order: [['write_date','DESC']]
             }
         );
         let views=bbsContents.views+1;
