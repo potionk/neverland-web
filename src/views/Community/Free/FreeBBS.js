@@ -22,7 +22,7 @@ function PostComment(props) {
     let button = null;
     
     if(getLoggedInAccount() == comment_id)
-    button = <span className="text-muted"><i className="fa fa-remove fa-lg mt-4" size=""></i></span>
+    button = <Button size="sm" color = "white" className="icon mr-1 mb-1"><i className="fa fa-remove" ></i></Button>
     return (
         // 일단 그냥 로드만 하게 해둠
         <div>
