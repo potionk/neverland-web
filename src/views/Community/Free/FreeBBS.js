@@ -14,16 +14,26 @@ function Split(props) {
 
 function PostComment(props) {
     const comment = props.comment
+    const comment_id = comment.writer_id
     const writeDate = (date) => {
         let koreaDate=new Date(date);
         return koreaDate.getFullYear()+"."+(koreaDate.getMonth()+1) +"."+koreaDate.getDate()+".  "+koreaDate.getHours()+":"+koreaDate.getMinutes();
     }
+    let button = null;
+    
+    if(getLoggedInAccount() == comment_id)
+    button = <span className="text-muted"><i className="fa fa-remove fa-lg mt-4" size=""></i></span>
     return (
         // 일단 그냥 로드만 하게 해둠
         <div>
-            {comment.writer_id}&nbsp;
-            {comment.contents}&nbsp;
-            {writeDate(comment.write_date)}
+            <div>
+            <b>{comment.writer_id}&nbsp;</b>
+            ({writeDate(comment.write_date)})&nbsp;
+            {button}
+            </div>
+            <div>
+            {comment.contents}
+            </div>
         </div>
     )
 }
