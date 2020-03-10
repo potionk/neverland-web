@@ -15,7 +15,11 @@ class Login extends Component {
       [e.target.name]: e.target.value
     })
   }
-
+  handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      this.login();
+    }
+  }
   login = async () => {
     axios.post("http://localhost:3001/account/login", {
       account: this.state.account,
@@ -65,14 +69,14 @@ class Login extends Component {
   };
   render() {
     return (
-      <div className="app flex-row align-items-center">
-        <Container>
+      <div className="app flex-row align-items-center" > 
+        <Container >
           <Row className="justify-content-center">
             <Col md="8">
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form>
+                    
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -89,7 +93,8 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" onChange={this.handleChange} placeholder="Password" autoComplete="current-password" name="password"/>
+                        <Input type="password" onChange={this.handleChange} placeholder="Password" autoComplete="current-password" name="password" 
+                        onKeyPress={this.handleKeyPress}/>
                       </InputGroup>
                       <Row>
                         <Col xs="6">
@@ -99,7 +104,7 @@ class Login extends Component {
                           <Button color="link" className="px-0">Forgot password?</Button>
                         </Col>
                       </Row>
-                    </Form>
+                    
                   </CardBody>
                 </Card>
                 <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
