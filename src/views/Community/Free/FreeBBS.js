@@ -21,7 +21,7 @@ function PostComment(props) {
     }
     let button = null;
 
-    if (getLoggedInAccount() == comment_id)
+    if (getLoggedInAccount() === comment_id)
         button = <Button size="sm" color="white" className="icon mr-1 mb-1"><i className="fa fa-remove" ></i></Button>
     return (
         // 일단 그냥 로드만 하게 해둠
@@ -134,6 +134,32 @@ class FreeBBS extends Component {
             })
     }
 
+    deleteComment = async () => {
+        axios.post("http://localhost:3001/community/delete_comment", {
+            id: this.props.match.params.id,
+        })
+            .then(res => {
+                let data = res.data;
+                console.log(data);
+                if (data.error) {
+                    switch (data.errorCode) {
+                        case 1:
+                            alert("게시글 id를 입력하세요.")
+                            window.location.reload();
+                            return;
+                        default:
+                            alert("잘못된 접근입니다.")
+                            window.location.reload();
+                            return
+                    }
+                } else {   
+                        alert("삭제가 완료되었습니다.")
+                        window.location.reload();
+                }
+            }).catch(error => {
+                console.log('failed', error)
+            })
+    }
     getComments() {
         let comments = this.state.commentContents;
 

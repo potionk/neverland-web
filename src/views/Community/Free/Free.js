@@ -12,8 +12,8 @@ function PostRow(props) {
     let current = new Date();
     let koreaDate=new Date(createdate);
     
-    if(current.getFullYear()==koreaDate.getFullYear()&&current.getMonth()==koreaDate.getMonth()
-      &&current.getDate()==koreaDate.getDate()){
+    if(current.getFullYear()===koreaDate.getFullYear()&&current.getMonth()===koreaDate.getMonth()
+      &&current.getDate()===koreaDate.getDate()){
       return koreaDate.getHours()+":"+koreaDate.getMinutes();
     } else {
       return koreaDate.getFullYear()+"."+(koreaDate.getMonth()+1) +"."+koreaDate.getDate()+".";

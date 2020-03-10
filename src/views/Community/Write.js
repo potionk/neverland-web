@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardFooter, CardHeader, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import axios from "axios";
-import { withRouter } from 'react-router-dom'
 import { getLoggedInAccount } from '../../modules/auth';
 
 class Write extends Component {
