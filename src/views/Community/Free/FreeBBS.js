@@ -179,6 +179,7 @@ class FreeBBS extends Component {
 
     render() {
         console.log(this.state);
+        console.log(this.state.bbsContents.writer_id);
         const post = this.state.bbsContents;
         let button = null;
         if (isLoggedIn()) {
@@ -195,12 +196,19 @@ class FreeBBS extends Component {
             counts = this.getCounts();
         }
 
+        let del = null;
+        if (getLoggedInAccount() === this.state.bbsContents.writer_id) {
+            del = <Button color="secondary" onClick={() =>{if (window.confirm("삭제하시겠습니까?")) this.deletePost()}}>Delete</Button>;
+        }
+        else {
+            del = <Button color="secondary" onClick={() =>alert("작성자만 삭제할 수 있습니다.")}>Delete</Button>;
+        }
         return (
             <div>
                 <ButtonToolbar className="justify-content-between">
                     <Button color="secondary" href="http://localhost:3000/#/community/Free">Back</Button>
                     <ButtonGroup className="card-header-actions">
-                    <Button color="secondary" onClick={() =>{if (window.confirm("삭제하시겠습니까?")) this.deletePost()}}>Delete</Button>
+                    {del}&nbsp;
                 <Button color="secondary">Edit</Button>
                     </ButtonGroup>
                 </ButtonToolbar>
