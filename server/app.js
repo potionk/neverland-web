@@ -8,6 +8,7 @@ app.set('port', process.env.PORT || 3001);
 const accountRouter = require('./routes/account');
 const charactersRouter = require('./routes/characters');
 const communityRouter = require('./routes/community');
+const cocRouter = require('./routes/coc');
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 app.use('/account', accountRouter);
 app.use('/characters', charactersRouter);
 app.use('/community', communityRouter);
+app.use('/coc', cocRouter);
 
 app.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));

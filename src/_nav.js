@@ -6,6 +6,11 @@ export default {
       icon: 'icon-home',
     },
     {
+      name: 'COC Test',
+      url: '/COC',
+      icon: 'icon-home',
+    },
+    {
       name: 'News',
       url: '/news',
       icon: 'icon-bulb',
